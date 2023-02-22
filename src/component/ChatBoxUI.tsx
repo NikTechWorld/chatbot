@@ -32,8 +32,8 @@ export default function ChatBoxUI() {
     if (!String(localMessage).trim()) return;
     socket.emit(EVENTS.CLIENT.SEND_ROOM_MESSAGE, {
       roomId,
-      localMessage,
-      user,
+      message:localMessage,
+      userName:user,
     });
     const date = new Date();
     setMessages([
@@ -41,10 +41,20 @@ export default function ChatBoxUI() {
       {
         userName: "You",
         message: localMessage,
-        time: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds}`,
+        time: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
       },
     ]);
   };
+  const handelJoinRoom=(e:React.MouseEvent<HTMLButtonElement>,key:string)=>{
+    e.preventDefault();
+    if(key===roomId)
+    return
+    socket.emit(EVENTS.CLIENT.JOIN_ROOM,key)
+  }
+  useEffect(()=>{
+    const user=JSON.parse(localStorage.getItem("user")||"").user;
+    setUserName(user);
+  },[])
   return (
     <>
       <div>
@@ -62,16 +72,17 @@ export default function ChatBoxUI() {
             <button onClick={(e) => handeCreateRoom(e)}>Create Room</button>
             <ul>
               {Object.keys(rooms).map((key) => (
-                <li key={key}>{rooms[key].name}</li>
+                <li key={key} style={{padding:"5px 0"}} >{rooms[key].name} &nbsp;<button title={key===roomId?`Active Room ${rooms[key].name}`:`click to join ${rooms[key].name}`}
+                onClick={(e)=>handelJoinRoom(e,key)} disabled={key===roomId}>Join Room</button></li>
               ))}
             </ul>
-            <button>Join Room</button>
+            
             {!messages ? (
               <div />
             ) : (
               <div>
                 {messages.map((message, index) => (
-                  <pre key={index}>{JSON.stringify(message)}</pre>
+                  <pre  key={index}>{JSON.stringify(message.message)}</pre>
                 ))}
                 <textarea
                   rows={1}

@@ -6,6 +6,7 @@ const EVENTS = {
   CLIENT: {
     CREATE_ROOM: "CREATE_ROOM",
     SEND_ROOM_MESSAGE: "SEND_ROOM_MESSAGE",
+    JOIN_ROOM: "JOIN_ROOM",
   },
   SERVER: {
     ROOMS: "ROOMS",
@@ -27,7 +28,9 @@ export default function socket({ io }: { io: Server }) {
       socket.emit(EVENTS.SERVER.ROOMS, rooms);
       socket.emit(EVENTS.SERVER.JOINED_ROOM, roomId);
     });
-    
+    /*
+     * When a user sends a room message
+     */
     socket.on(
       EVENTS.CLIENT.SEND_ROOM_MESSAGE,
       ({ roomId, message, userName }) => {
@@ -37,9 +40,16 @@ export default function socket({ io }: { io: Server }) {
           .emit(EVENTS.SERVER.ROOM_MESSAGE, {
             message,
             userName,
-            time: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds}`,
+            time: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
           });
       }
     );
+    /*
+     * When a user joins a room
+     */
+    socket.on(EVENTS.CLIENT.JOIN_ROOM, (roomId) => {
+      socket.join(roomId);
+      socket.emit(EVENTS.SERVER.JOINED_ROOM, roomId);
+    })
   });
 }

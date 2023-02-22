@@ -60,6 +60,7 @@ function SocketProvider(props: any) {
     setMessages([]);
   });
   socket.on(EVENTS.SERVER.ROOM_MESSAGE, ({ message, userName, time }) => {
+    console.log("IN",message,userName,time)
     setMessages([...messages, { message, userName, time }]);
   });
   return (
