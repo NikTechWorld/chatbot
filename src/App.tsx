@@ -1,12 +1,13 @@
+import SocketProvider, { useSocket } from "./context/SocketContext";
+import ChatBoxUI from "./components/ChatBoxUI";
+import Chat from "./components/chat/Chat";
 
-import SocketProvider, { useSocket } from './context/SocketContext';
-import ChatBoxUI from './components/ChatBoxUI';
-
-function App() { 
-  const socket=useSocket(); 
+function App() {
+  const socket = useSocket();
   return (
     <SocketProvider>
-      <ChatBoxUI/>
+      {/* <ChatBoxUI /> */}
+      <Chat />
     </SocketProvider>
   );
 }
