@@ -1,7 +1,6 @@
-import React from 'react';
-import './App.css'; 
+
 import SocketProvider, { useSocket } from './context/SocketContext';
-import ChatBoxUI from './component/ChatBoxUI';
+import ChatBoxUI from './components/ChatBoxUI';
 
 function App() { 
   const socket=useSocket(); 
