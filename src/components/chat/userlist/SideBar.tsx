@@ -25,11 +25,7 @@ export default function SideBar(props: SideBarProps) {
         >
           {/* Offcanvas header */}
           <div className="offcanvas-header">
-            <button
-              type="button"
-              className="btn-close text-reset ms-auto"
-              data-bs-dismiss="offcanvas"
-            />
+            <button type="button" className="btn-close text-reset ms-auto" />
           </div>
           {/* Offcanvas body */}
           <div className="offcanvas-body p-0">
