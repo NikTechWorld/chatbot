@@ -29,6 +29,11 @@ export default function Chat(props: IAppProps) {
   return (
     <main>
       <div className="container">
+      <a
+          href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GITHUB_REDIRECT_URL}?path=${"/"}&scope=user:email`}
+        >
+          LOGIN WITH GITHUB
+        </a>
         {userName ? (
           <div className="row gx-0">
             <SideBar />
