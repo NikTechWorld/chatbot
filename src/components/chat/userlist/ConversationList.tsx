@@ -1,9 +1,7 @@
 import ConversationItem from "./ConversatonItem";
 
 export default function ConversationList() {
-  return (
-    <>
-      {/* Chat list tab START */}
+  return ( 
       <div className="mt-4 h-100">
         <div className="chat-tab-list custom-scrollbar os-host os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition os-host-overflow os-host-overflow-y">
           <div className="os-resize-observer-host observed">
@@ -40,8 +38,7 @@ export default function ConversationList() {
                   conersationImages={["https://social.webestica.com/assets/images/avatar/10.jpg"]}
                    active={true}
                    isOnline={true}
-                   haveStory={true}
-                   key={0}
+                   haveStory={true} 
                    conersationName="Frances Guerrero"
                    lastMessage=" Frances sent a photo. os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden"/> 
                 </ul>
@@ -66,9 +63,7 @@ export default function ConversationList() {
           </div>
           <div className="os-scrollbar-corner" />
         </div>
-      </div>
-      {/* Chat list tab END */}
-    </>
+      </div> 
   );
 }
 

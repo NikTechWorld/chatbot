@@ -1,6 +1,6 @@
 import * as React from "react";
 import SendMessage from "../conversation/SendMessage";
-import UserTab from "./ConversationList";
+import ConversationList from "./ConversationList";
 import UserSearch from "./ConversationSearch";
 
 export interface SideBarProps {}
@@ -34,7 +34,7 @@ export default function SideBar(props: SideBarProps) {
               <UserSearch />
               {/* Search chat END */}
               {/* Chat list tab START */}
-              <UserTab />
+              <ConversationList />
               {/* Chat list tab END */}
             </div>
           </div>

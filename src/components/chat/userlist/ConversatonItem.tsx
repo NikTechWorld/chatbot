@@ -4,13 +4,11 @@ interface ConversationItemProps {
   conersationName: string;
   active: boolean;
   isOnline: boolean;
-  haveStory: boolean;
-  key: number;
+  haveStory: boolean; 
   lastMessage: string;
 }
 export default function ConversationItem(props: ConversationItemProps) {
   let {
-    key,
     conersationName,
     conersationImages,
     active,
@@ -21,7 +19,7 @@ export default function ConversationItem(props: ConversationItemProps) {
   } = props;
   return (
     <>
-      <li key={key}>
+      <li  >
         {/* Chat user tab item */}
         <span className={`nav-link text-start ${active && "active"}`}>
           <div className="d-flex">
@@ -87,7 +85,7 @@ const GroupUser = (props: GroupUserInterface) => {
       ))}
       {dAvatarCount > 3 && (
         <li
-          key={4}
+          // key={4}
           className={`avatar avatar-${dAvatarCount > 3 ? "xx" : "x"}s`}
         >
           <img
