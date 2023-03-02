@@ -1,36 +1,30 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import asyncApiCall from "../../config/api";
 import * as userActions from "./../../actions/userActions";
 
 function Login(props: any) {
-  useEffect(() => {
-    let accessToken = sessionStorage.getItem("accessToken");
-    if (accessToken === null || accessToken === undefined) {
-      let code = new URLSearchParams(window.location.search).get("code");
-      console.log(code);
-      if (code) {
-        (async () => {
-          let responce = await fetch(
-            `http://localhost/oauth2/token/github?code=${code}`
-          )
-            .then((res) => {
-              if (res.status === 401) {
-                sessionStorage.clear();
-              } else return res.json();
-            })
-            .catch((error) => console.log(error));
-          if (responce && responce.token) {
-            await props.userActions.createUser(responce.userDetails);
-            await sessionStorage.setItem("accessToken", responce.token);
-            await localStorage.setItem("accessToken", responce.token);
-            window.location.replace(process.env.REACT_APP_HOMEPAGE||"/");
-          }
-        })();
-      }
-      ///oauth2/token/github
-    }
-  }, []);
+  // useEffect(() => {
+  //   let accessToken = sessionStorage.getItem("accessToken");
+  //   if (accessToken === null || accessToken === undefined) {
+  //     let code = new URLSearchParams(window.location.search).get("code");
+  //     console.log(code);
+  //     if (code) {
+  //       (async () => {
+  //         let responce = await asyncApiCall("oAuth2/token/github", "GET", {
+  //           code,
+  //         });
+  //         if (responce && responce.token) {
+  //           await props.userActions.createUser(responce.userDetails);
+  //           await sessionStorage.setItem("accessToken", responce.token);
+  //           await localStorage.setItem("accessToken", responce.token);
+  //           window.location.replace(process.env.REACT_APP_HOMEPAGE || "/");
+  //         }
+  //       })();
+  //     }
+  //   }
+  // }, []);
   const handelGitHubLogin = () => {
     window.location.assign(
       `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`

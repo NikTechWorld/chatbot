@@ -4,15 +4,14 @@ import { useEffect } from "react";
 import { getAccessToken } from "./config/helper";
 
 function App() {
-  useEffect(() => {
-    const token = getAccessToken();
-    const sessionToken = sessionStorage.getItem("accessToken") || "";
-    if (!sessionToken.trim() && token.trim()) {
-      sessionStorage.setItem("accessToken", token);
-      window.location.replace(process.env.REACT_APP_HOMEPAGE || "/");
-    } 
-  }, [])
-  
+  // useEffect(() => {
+  //   const token = getAccessToken();
+  //   const sessionToken = sessionStorage.getItem("accessToken") || "";
+  //   if (!sessionToken.trim() && token.trim()) {
+  //     sessionStorage.setItem("accessToken", token);
+  //     window.location.replace(process.env.REACT_APP_HOMEPAGE || "/");
+  //   }
+  // }, [])
 
   return (
     <SocketProvider>
