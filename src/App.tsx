@@ -1,7 +1,5 @@
 import SocketProvider from "./context/SocketContext";
 import Chat from "./components/chat/Chat";
-import { useEffect } from "react";
-import { getAccessToken } from "./config/helper";
 
 function App() {
   // useEffect(() => {
@@ -12,7 +10,6 @@ function App() {
   //     window.location.replace(process.env.REACT_APP_HOMEPAGE || "/");
   //   }
   // }, [])
-
   return (
     <SocketProvider>
       <Chat />

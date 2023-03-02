@@ -4,7 +4,7 @@ interface ConversationItemProps {
   conersationName: string;
   active: boolean;
   isOnline: boolean;
-  haveStory: boolean; 
+  haveStory: boolean;
   lastMessage: string;
 }
 export default function ConversationItem(props: ConversationItemProps) {
@@ -19,7 +19,7 @@ export default function ConversationItem(props: ConversationItemProps) {
   } = props;
   return (
     <>
-      <li  >
+      <li>
         {/* Chat user tab item */}
         <span className={`nav-link text-start ${active && "active"}`}>
           <div className="d-flex">
@@ -46,7 +46,9 @@ export default function ConversationItem(props: ConversationItemProps) {
               )}
             </div>
             <div className="flex-grow-1 d-block overflow-hidden">
-              <h6 className="mb-0 mt-1 text-truncate w-75">Webestica crew </h6>
+              <h6 className="mb-0 mt-1 text-truncate w-75">
+                {conersationName}
+              </h6>
               <div className="small text-secondary">
                 You: Okay thanks, everyone.
               </div>
