@@ -1,6 +1,6 @@
 import * as helper from "./helper";
 
-const apiPathToCall = "http://localhost";
+const apiPathToCall = process.env.REACT_APP_BACKEND_URL+"/"+process.env.REACT_APP_API_VERSION;
 export default async function asyncApiCall(
   service: string,
   method: string,
@@ -31,7 +31,7 @@ export default async function asyncApiCall(
       })
         .then((res) => {
           if (res.status === 401) {
-            localStorage.clear();
+            sessionStorage.clear();
           } else return res.json();
         })
         .catch(function (e) {});

@@ -18,7 +18,7 @@ export default function ChatBoxUI() {
   const isLogedIn = () => {
     if (!String(user).trim()) return;
     setUserName(user);
-    localStorage.setItem("user", JSON.stringify({ user }));
+    sessionStorage.setItem("user", JSON.stringify({ user }));
   };
   const handeCreateRoom = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ export default function ChatBoxUI() {
     socket.emit(EVENTS.CLIENT.JOIN_ROOM, key);
   };
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "").user;
+    const user = JSON.parse(sessionStorage.getItem("user") || "").user;
     setUserName(user);
   }, []);
   return (

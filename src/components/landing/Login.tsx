@@ -5,7 +5,7 @@ import * as userActions from "./../../actions/userActions";
 
 function Login(props: any) {
   useEffect(() => {
-    let accessToken = localStorage.getItem("accessToken");
+    let accessToken = sessionStorage.getItem("accessToken");
     if (accessToken === null || accessToken === undefined) {
       let code = new URLSearchParams(window.location.search).get("code");
       console.log(code);
@@ -16,14 +16,15 @@ function Login(props: any) {
           )
             .then((res) => {
               if (res.status === 401) {
-                localStorage.clear();
+                sessionStorage.clear();
               } else return res.json();
             })
             .catch((error) => console.log(error));
           if (responce && responce.token) {
             await props.userActions.createUser(responce.userDetails);
+            await sessionStorage.setItem("accessToken", responce.token);
             await localStorage.setItem("accessToken", responce.token);
-            window.location.replace("/");
+            window.location.replace(process.env.REACT_APP_HOMEPAGE||"/");
           }
         })();
       }

@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 // export interface IAppProps { }
 
 function Chat(props: any) {
-  const [accessToken] = useState(localStorage.getItem("accessToken"));
+  const [accessToken] = useState(sessionStorage.getItem("accessToken"));
   useEffect(() => {
     // props.userActions.createUser(null);
     props.userActions.getActiveUser();

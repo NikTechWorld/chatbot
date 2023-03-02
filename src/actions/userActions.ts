@@ -3,8 +3,7 @@ import asyncApiCall from "../config/api";
 import * as helper from "./../config/helper";
 interface userInterface {}
 export const createUser = (user: userInterface) => {
-  return async (dispatch: Dispatch<{ type: string; payload: object }>) => {
-    console.log(user);
+  return async (dispatch: Dispatch<{ type: string; payload: object }>) => { 
     let responce = await asyncApiCall("/user/create", "POST", user);
     console.log("server", responce);
     // dispatch(updateReducer("SIGNUP", user))
@@ -17,6 +16,11 @@ export const getActiveUser = () => {
     );
   };
 };
+export const getOnlineUser=()=>{
+  return (dispatch: Dispatch<{ type: string; payload: object }>) => {
+
+  }
+}
 const updateReducer = (type: string, payload: object) => {
   return {
     type,
