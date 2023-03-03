@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ConversationItem from "./ConversatonItem";
 import * as userActions from "../../../actions/userActions";
+import { Console } from "console";
 
 function ConversationList(props: any) {
   let { onlieUsers, loginUser } = props.state.user;
@@ -37,7 +38,7 @@ function ConversationList(props: any) {
                 className="nav flex-column nav-pills nav-pills-soft"
                 role="tablist"
               >
-                {onlieUsers.map(
+                {onlieUsers?.map(
                   (ou: any) =>
                     ou.id !== loginUser.id && (
                       <ConversationItem

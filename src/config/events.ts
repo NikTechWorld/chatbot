@@ -15,5 +15,10 @@ const EVENTS = {
     GET: "GET_USERS",
     DISCONNECTED: "USER_DISCONNECTED",
   },
+
+  MESSAGE: {
+    SEND: "SEND_MESSAGE",
+    GET: "GET_MESSAGE",
+  },
 };
 export default EVENTS;

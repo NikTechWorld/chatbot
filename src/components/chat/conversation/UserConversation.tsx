@@ -1,6 +1,10 @@
+import React from "react";
+import EVENTS from "../../../config/events";
+import { useSocket } from "../../../context/SocketContext";
 import SendMessage from "./SendMessage";
 
-export default function UserConversation() {
+export default function UserConversation(props: any) {
+  let { reciver, sender } = props;
   return (
     <div className="col-lg-8 col-xxl-9">
       <div className="card card-chat rounded-start-lg-0 border-start-lg-0">
@@ -12,32 +16,44 @@ export default function UserConversation() {
               role="tabpanel"
               aria-labelledby="chat-1-tab"
             >
-              <TopAvatarAndStatus isGroup={false} />
+              <TopAvatarAndStatus isGroup={false} {...reciver} />
               <hr />
               <Conversation isGroup={false} />
             </div>
           </div>
         </div>
         <div className="card-footer">
-          <SendMessage />
+          <SendMessage senderId={sender?.id} receiverId={reciver?.id} />
         </div>
       </div>
     </div>
   );
 }
-const TopAvatarAndStatus = (props: { isGroup: boolean }) => {
+const TopAvatarAndStatus = (props: {
+  isGroup: boolean;
+  login: string;
+  id: number;
+  avatar_url: string;
+  type: string;
+  site_admin: boolean;
+  name: string;
+  location: string | null;
+  email: string | null;
+  bio: string | null;
+}) => {
+  let { avatar_url, name, login } = props;
   return (
     <div className="d-sm-flex justify-content-between align-items-center">
       <div className="d-flex mb-2 mb-sm-0">
         <div className="flex-shrink-0 avatar me-2">
           <img
             className="avatar-img rounded-circle"
-            src="https://social.webestica.com/assets/images/avatar/10.jpg"
-            alt=""
+            src={avatar_url}
+            alt={name || login}
           />
         </div>
         <div className="d-block flex-grow-1">
-          <h6 className="mb-0 mt-1">Judy Nguyen</h6>
+          <h6 className="mb-0 mt-1">{name || login}</h6>
           <div className="small text-secondary">
             {props.isGroup ? (
               <>You: Okay thanks, everyone.</>
@@ -94,6 +110,16 @@ const TopAvatarAndStatus = (props: { isGroup: boolean }) => {
 };
 
 const Conversation = (props: { isGroup: boolean }) => {
+  const { socket } = useSocket();
+  let [conversatin, setConversation] = React.useState<
+    { senderId: number; message: string }[]
+  >([]);
+  React.useEffect(() => {
+    socket.on(EVENTS.MESSAGE.GET, (data: any) => {
+      let messages = [...conversatin, data];
+      setConversation(messages);
+    });
+  }, []);
   return props.isGroup ? (
     <>
       <div className="chat-conversation-content custom-scrollbar os-host os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition os-host-overflow os-host-overflow-y">
@@ -304,32 +330,35 @@ const Conversation = (props: { isGroup: boolean }) => {
               style={{ padding: 0, height: "100%", width: "100%" }}
             >
               {/* Chat time */}
-              <div className="text-center small my-2">
+              {/* <div className="text-center small my-2">
                 Jul 16, 2022, 06:15 am
-              </div>
+              </div> */}
               {/* Chat message left */}
-              <div className="d-flex mb-1">
-                <div className="flex-shrink-0 avatar avatar-xs me-2">
-                  <img
-                    className="avatar-img rounded-circle"
-                    src="https://social.webestica.com/assets/images/avatar/10.jpg"
-                    alt=""
-                  />
-                </div>
-                <div className="flex-grow-1">
-                  <div className="w-100">
-                    <div className="d-flex flex-column align-items-start">
-                      <div className="bg-light text-secondary p-2 px-3 rounded-2">
-                        Applauded no discovery in newspaper allowance am
-                        northward😊
+              <>
+                {conversatin.map((mData) => (
+                  <div className="d-flex mb-1">
+                    <div className="flex-shrink-0 avatar avatar-xs me-2">
+                      <img
+                        className="avatar-img rounded-circle"
+                        src="https://social.webestica.com/assets/images/avatar/10.jpg"
+                        alt=""
+                      />
+                    </div>
+                    <div className="flex-grow-1">
+                      <div className="w-100">
+                        <div className="d-flex flex-column align-items-start">
+                          <div className="bg-light text-secondary p-2 px-3 rounded-2">
+                            {mData.message}
+                          </div>
+                          <div className="small my-2">6:15 AM</div>
+                        </div>
                       </div>
-                      <div className="small my-2">6:15 AM</div>
                     </div>
                   </div>
-                </div>
-              </div>
+                ))}
+              </>
               {/* Chat message right */}
-              <div className="d-flex justify-content-end text-end mb-1">
+              {/* <div className="d-flex justify-content-end text-end mb-1">
                 <div className="w-100">
                   <div className="d-flex flex-column align-items-end">
                     <div className="bg-primary text-white p-2 px-3 rounded-2">
@@ -337,10 +366,10 @@ const Conversation = (props: { isGroup: boolean }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Chat message left */}
-              <div className="d-flex mb-1">
+              {/* <div className="d-flex mb-1">
                 <div className="flex-shrink-0 avatar avatar-xs me-2">
                   <img
                     className="avatar-img rounded-circle"
@@ -364,9 +393,9 @@ const Conversation = (props: { isGroup: boolean }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/* Chat message right */}
-              <div className="d-flex justify-content-end text-end mb-1">
+              {/* <div className="d-flex justify-content-end text-end mb-1">
                 <div className="w-100">
                   <div className="d-flex flex-column align-items-end">
                     <img
@@ -377,11 +406,11 @@ const Conversation = (props: { isGroup: boolean }) => {
                     <div className="small my-2">5:36 PM</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/* Chat time */}
               <div className="text-center small my-2">2 New Messages</div>
               {/* Chat message left */}
-              <div className="d-flex mb-1">
+              {/* <div className="d-flex mb-1">
                 <div className="flex-shrink-0 avatar avatar-xs me-2">
                   <img
                     className="avatar-img rounded-circle"
@@ -402,7 +431,7 @@ const Conversation = (props: { isGroup: boolean }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

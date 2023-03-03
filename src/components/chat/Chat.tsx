@@ -23,18 +23,23 @@ function Chat(props: any) {
       const isPresent = onlieUsers.some((u: any) => u === loginUser?.id);
       if (!isPresent && loginUser) {
         socket.emit(EVENTS.USER.CREATE, loginUser.id);
-        socket.on(EVENTS.USER.GET, (users) => {
-          props.userActions.getOnlineUser(users);
-        });
       }
     }
   }, []);
+  let sender = props.state.user.loginUser;
+  let reciver = props.state.user.onlieUsers.filter(
+    (u: any) => u.id !== sender.id
+  )[0];
+  if (reciver === undefined)
+    socket.on(EVENTS.USER.GET, (users: any) => {
+      props.userActions.getOnlineUser(users);
+    });
   return (
     <main>
       <div className="container">
         <div className="row gx-0">
           <SideBar />
-          <UserConversation />
+          <UserConversation sender={sender} reciver={reciver} />
         </div>
       </div>
     </main>

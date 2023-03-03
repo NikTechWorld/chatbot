@@ -1,5 +1,5 @@
 import io, { Socket } from "socket.io-client";
-import React, { createContext, useContext, useRef } from "react";
+import React, { createContext, useContext, useEffect, useRef } from "react";
 var connectionOptions = {
   "force new connection": true,
   timeout: 10000,
@@ -10,14 +10,12 @@ var connectionOptions = {
   transports: ["websocket"],
 };
 const socket = io(process.env.REACT_APP_BACKEND_URL || "", connectionOptions);
-
 interface Context {
-  socket: Socket;
+  socket: any;
 }
 const SocketContext = createContext<Context>({
   socket,
 });
-
 function SocketProvider(props: any) {
   return (
     <SocketContext.Provider
