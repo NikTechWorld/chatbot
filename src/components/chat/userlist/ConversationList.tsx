@@ -1,11 +1,13 @@
+import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ConversationItem from "./ConversatonItem";
 import * as userActions from "../../../actions/userActions";
-import { Console } from "console";
 
 function ConversationList(props: any) {
-  let { onlieUsers, loginUser } = props.state.user;
+  let {  user,chat } = props.state;
+  let {onlieUsers}=user;
+  let {activeChat}=chat; 
   return (
     <div className="mt-4 h-100">
       <div className="chat-tab-list custom-scrollbar os-host os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition os-host-overflow os-host-overflow-y">
@@ -38,19 +40,17 @@ function ConversationList(props: any) {
                 className="nav flex-column nav-pills nav-pills-soft"
                 role="tablist"
               >
-                {onlieUsers?.map(
-                  (ou: any) =>
-                    ou.id !== loginUser.id && (
-                      <ConversationItem
-                        isGroup={false}
-                        conersationImages={[ou.avatar_url]}
-                        active={false}
-                        isOnline={true}
-                        haveStory={false}
-                        conersationName={ou.name || ou.login}
-                        lastMessage=" Frances sent a photo. os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden"
-                      />
-                    )
+                {onlieUsers && onlieUsers?.map(
+                  (ou: any, index: number) => <React.Fragment key={index}>
+                    <ConversationItem 
+                      isGroup={false}
+                      conersationImages={[ou.avatar_url]}
+                      active={activeChat.id===ou.id}
+                      isOnline={true}
+                      haveStory={false}
+                      conersationName={ou.name || ou.login}
+                      lastMessage=" Frances sent a photo. os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden"
+                    /></React.Fragment >
                 )}
               </ul>
             </div>

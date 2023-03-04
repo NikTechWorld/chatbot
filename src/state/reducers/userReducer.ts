@@ -21,19 +21,20 @@ interface userAction {
 const userReducer = (
   state: userReducerInterface = initialState,
   action: userAction
-) => {
+) => { 
   switch (action.type) {
-    case "GET_ONLINE_USERS":
-      state = { ...state, onlieUsers: action.payload };
-      return state;
     case "SIGNUP":
-      let { onlieUsers } = state;
+      let { onlieUsers } = state;  
       let userList = [...onlieUsers];
       userList.push(action.payload);
       state = { ...state, onlieUsers: userList, loginUser: action.payload };
       return state;
 
-    case "GET_LOGIN_USER":
+    case "SET_ONLINE_USERS":
+      state = { ...state, onlieUsers: action.payload };
+      return state;   
+
+    case "SET_LOGIN_USER":
       state = { ...state, loginUser: action.payload };
       return state;
     default:

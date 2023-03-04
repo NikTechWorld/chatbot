@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import * as helper from "./../../config/helper";
 import * as userActions from "./../../actions/userActions";
 
 function Login(props: any) {
@@ -8,6 +10,10 @@ function Login(props: any) {
       `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`
     );
   };
+  useEffect(()=>{
+    // if(!helper.haveAuthorizeToken())
+    // localStorage.clear() 
+  },[])
   return (
     <div className="container">
       <div className="row justify-content-center text-center">

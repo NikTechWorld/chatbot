@@ -11,24 +11,19 @@ function OAuth(props: any) {
   let navigate = useNavigate();
   React.useEffect(() => {
     const code = searchParams.get("code");
-    getToken(code, socket); 
+    getToken(code, socket);
   }, []);
-  function getToken(code: any, socket: any) {
-    let accessToken = localStorage.getItem("accessToken"); 
-    if (accessToken === null) {
-      if (code) {
-        (async () => {
-          let responce = await asyncApiCall("oAuth2/token/github", "GET", {
-            code,
-          }); 
-          if (responce && responce.token) {
-            await props.userActions.createUser(responce.userDetails);
-            await localStorage.setItem("accessToken", responce.token);  
-          }
-        })();
+  const getToken = async (code: any, socket: any) => {
+    localStorage.clear()
+    if (code) {
+      let responce = await asyncApiCall("oAuth2/token/github", "GET", {
+        code,
+      });
+      if (responce && responce.token) {
+        await props.userActions.createUser(responce.userDetails);
+        await localStorage.setItem("accessToken", responce.token);
       }
-    }
-    navigate("/");
+    } 
   }
   return <div>Loading...</div>;
 }

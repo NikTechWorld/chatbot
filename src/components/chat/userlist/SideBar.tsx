@@ -3,9 +3,12 @@ import SendMessage from "../conversation/SendMessage";
 import ConversationList from "./ConversationList";
 import UserSearch from "./ConversationSearch";
 
-export interface SideBarProps {}
+export interface SideBarProps { 
+  onlineUserCount:number
+}
 
 export default function SideBar(props: SideBarProps) {
+
   return (
     <div className="col-lg-4 col-xxl-3" id="chatTabs" role="tablist">
       {/* Divider */}
@@ -13,7 +16,7 @@ export default function SideBar(props: SideBarProps) {
       {/* Advanced filter responsive toggler END */}
       <div className="card card-body border-end-0 border-bottom-0 rounded-bottom-0">
         <div className=" d-flex justify-content-between align-items-center">
-          <ActiveUsers count={6} />
+          <ActiveUsers count={props.onlineUserCount} />
           <NewChat />
         </div>
       </div>
@@ -43,6 +46,7 @@ export default function SideBar(props: SideBarProps) {
     </div>
   );
 }
+
 const MobileMenu = () => (
   <div className="d-flex align-items-center mb-4 d-lg-none">
     <button
@@ -59,6 +63,7 @@ const MobileMenu = () => (
     </button>
   </div>
 );
+
 const ActiveUsers = (props: { count: number }) => (
   <h1 className="h5 mb-0">
     Active chats &nbsp;
@@ -67,6 +72,7 @@ const ActiveUsers = (props: { count: number }) => (
     </span>
   </h1>
 );
+
 /* Chat new create message item START */
 const NewChat = () => (
   <>
@@ -83,7 +89,6 @@ const NewChat = () => (
 /* Chat new create message item END */
 
 /* Chat toast START */
-
 const NewChatTost = () => (
   <div className="position-fixed bottom-0 end-0 p-3">
     <div

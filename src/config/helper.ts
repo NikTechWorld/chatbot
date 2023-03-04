@@ -23,5 +23,6 @@ export function getParameterByName(name: string) {
     ? ""
     : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+export const haveAuthorizeToken = () => Math.floor(Date.now() / 1000) <= parseJwt(getAccessToken())?.exp
+export const updateReducer = (type: string, payload: object) => { return { type, payload } };
 
-export const haveAuthorizeToken=()=>Date.now() >= parseJwt(getAccessToken()).exp
