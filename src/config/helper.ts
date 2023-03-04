@@ -23,3 +23,5 @@ export function getParameterByName(name: string) {
     ? ""
     : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+
+export const haveAuthorizeToken=()=>Date.now() >= parseJwt(getAccessToken()).exp

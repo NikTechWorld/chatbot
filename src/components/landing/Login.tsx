@@ -9,20 +9,24 @@ function Login(props: any) {
     );
   };
   return (
-    <div className="card card-body p-4 p-sm-5 mt-sm-n5 mb-n5">
-      <span
-        className="fa-brands fa-github fs-10"
-        style={{
-          border: "1px solid",
-          fontSize: 100,
-          width: "fit-content",
-          padding: 10,
-          borderRadius: 10,
-          cursor: "pointer",
-        }}
-        onClick={handelGitHubLogin}
-      />
-    </div>
+    <div className="container">
+      <div className="row justify-content-center text-center">
+        <div className="col-sm-10 col-md-8 col-lg-6 position-relative z-index-1">
+        <span
+          className="fa-brands fa-github fs-10 "
+          style={{
+            border: "1px solid",
+            fontSize: 100,
+            width: "fit-content",
+            padding: 10,
+            borderRadius: 10,
+            cursor: "pointer",
+            marginTop:"100px"
+          }}
+          onClick={handelGitHubLogin}
+        /></div>
+      </div>
+      </div>
   );
 }
 

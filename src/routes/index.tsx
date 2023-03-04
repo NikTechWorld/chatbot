@@ -1,16 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import ErrorPage from "../components/Error/errorPage";
+import * as helper from "./../config/helper"
+// import ErrorPage from "../components/Error/errorPage";
 import Login from "../components/landing/Login";
 import OAuth from "../components/OAuth";
-
-const router = createBrowserRouter([
+import Chat from "../components/chat/Chat";
+export default createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
+    children: [{ path: "/", element: helper.haveAuthorizeToken() ? <Chat /> : <Login /> }]
   },
   { path: "/login", element: <Login /> },
   { path: "/oauth", element: <OAuth /> },
-]);
-export default router;
+]); 

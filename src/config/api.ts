@@ -30,10 +30,14 @@ export default async function asyncApiCall(
       return await fetch(apiPathToCall + "/" + service + "?" + url, {
         headers: myHeaders,
       })
-        .then((res) => {
-          if (res.status === 401) {
-            localStorage.clear();
-          } else return res.json();
+        .then(async (responce) => {
+          let responceData=await responce.json(); 
+          if(responce.status!==200 || responceData.STATUS !==200)
+          {
+            localStorage.clear()
+            window.location.assign("/")
+          }
+          else return responceData.DATA
         })
         .catch(function (e) {});
   }

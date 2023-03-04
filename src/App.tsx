@@ -1,7 +1,7 @@
-import SocketProvider from "./context/SocketContext";
-import Chat from "./components/chat/Chat";
+import SocketProvider from "./context/SocketContext"; 
+import { Outlet } from "react-router";
 
-function App() {
+function App(props:any) {
   // useEffect(() => {
   //   const token = getAccessToken();
   //   const sessionToken = sessionStorage.getItem("accessToken") || "";
@@ -9,10 +9,11 @@ function App() {
   //     sessionStorage.setItem("accessToken", token);
   //     window.location.replace(process.env.REACT_APP_HOMEPAGE || "/");
   //   }
-  // }, [])
+  // }, [])  
+
   return (
-    <SocketProvider>
-      <Chat />
+    <SocketProvider> 
+       <Outlet/>
     </SocketProvider>
   );
 }
