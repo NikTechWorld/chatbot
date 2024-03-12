@@ -1,17 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux"; 
+import { bindActionCreators } from "redux";
 import { useSocket } from "../../../context/SocketContext";
 import SendMessage from "./SendMessage";
 import * as chatAction from "./../chatAction";
 import Conversation from "./Conversation";
 
 function UserConversation(props: any) {
-  let { activeChat} = props.state.chat;
-  let {user}=useSocket() 
+  let { activeChat } = props.state.chat;
+  let { user } = useSocket();
   return (
-    <div className="col-lg-8 col-xxl-9">
-      <div className="card card-chat rounded-start-lg-0 border-start-lg-0">
+    <div
+      className="col-lg-8 col-xxl-9"
+      style={{ height: "calc(100vh - 149px)" }}
+    >
+      <div
+        className="card card-chat rounded-start-lg-0 border-start-lg-0"
+        style={{ height: "inherit" }}
+      >
         <div className="card-body h-100">
           <div className="tab-content py-0 mb-0 h-100">
             <div
@@ -22,7 +28,7 @@ function UserConversation(props: any) {
             >
               <TopAvatarAndStatus isGroup={false} {...activeChat} />
               <hr />
-              <Conversation isGroup={false} />
+              <Conversation isGroup={false} {...activeChat} />
             </div>
           </div>
         </div>
@@ -37,8 +43,8 @@ function mapStateToProps(state: any) {
   return { state };
 }
 function mapDispatchToProps(dispatch: any) {
-  return { 
-    chatAction: bindActionCreators(chatAction, dispatch)
+  return {
+    chatAction: bindActionCreators(chatAction, dispatch),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserConversation);
@@ -122,4 +128,3 @@ const TopAvatarAndStatus = (props: {
     </div>
   );
 };
-
