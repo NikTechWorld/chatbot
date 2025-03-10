@@ -9,9 +9,9 @@ type userType = {
   email: string | null;
   bio: string | null;
 } | null;
-const initialState = { onlieUsers: [], loginUser: null };
+const initialState = { onlineUsers: [], loginUser: null };
 interface userReducerInterface {
-  onlieUsers: userType[];
+  onlineUsers: userType[];
   loginUser: userType;
 }
 interface userAction {
@@ -21,18 +21,18 @@ interface userAction {
 const userReducer = (
   state: userReducerInterface = initialState,
   action: userAction
-) => { 
+) => {
   switch (action.type) {
     case "SIGNUP":
-      let { onlieUsers } = state;  
-      let userList = [...onlieUsers];
+      let { onlineUsers } = state;
+      let userList = [...onlineUsers];
       userList.push(action.payload);
-      state = { ...state, onlieUsers: userList, loginUser: action.payload };
+      state = { ...state, onlineUsers: userList, loginUser: action.payload };
       return state;
 
     case "SET_ONLINE_USERS":
-      state = { ...state, onlieUsers: action.payload };
-      return state;   
+      state = { ...state, onlineUsers: action.payload };
+      return state;
 
     case "SET_LOGIN_USER":
       state = { ...state, loginUser: action.payload };

@@ -16,13 +16,15 @@ export function parseJwt(token: string) {
 }
 export const getAccessToken = () => localStorage.getItem("accessToken") || "";
 export function getParameterByName(name: string) {
-  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  name = name.replace(/[[]/, "\\[").replace(/[\]]/, "\\]");
   var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
     results = regex.exec(window.location.href);
   return results === null
     ? ""
     : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-export const haveAuthorizeToken = () => Math.floor(Date.now() / 1000) <= parseJwt(getAccessToken())?.exp
-export const updateReducer = (type: string, payload: object) => { return { type, payload } };
-
+export const haveAuthorizeToken = () =>
+  Math.floor(Date.now() / 1000) <= parseJwt(getAccessToken())?.exp;
+export const updateReducer = (type: string, payload: object) => {
+  return { type, payload };
+};

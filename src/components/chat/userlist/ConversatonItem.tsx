@@ -15,45 +15,45 @@ export default function ConversationItem(props: ConversationItemProps) {
     haveStory,
     isOnline,
     isGroup,
-    lastMessage,
   } = props;
-  return <li >
-    {/* Chat user tab item */}
-    <span className={`nav-link text-start ${active && "active"}`}>
-      <div className="d-flex">
-        <div
-          className={`flex-shrink-0 avatar me-2 ${!isGroup && haveStory && "avatar-story"
+  
+  return (
+    <li>
+      {/* Chat user tab item */}
+      <span className={`nav-link text-start ${active && "active"}`}>
+        <div className="d-flex">
+          <div
+            className={`flex-shrink-0 avatar me-2 ${
+              !isGroup && haveStory && "avatar-story"
             } ${!isGroup && isOnline && "status-online"}`}
-        >
-          {isGroup ? (
-            <GroupUser
-              memberAvatarDetail={[
-                { memberImage: "01.jpg", memberName: "ABCD" },
-                { memberImage: "02.jpg", memberName: "BCD" },
-                { memberImage: "03.jpg", memberName: "CD" },
-                { memberImage: "04.jpg", memberName: "D" },
-              ]}
-            />
-          ) : (
-            <img
-              className="avatar-img rounded-circle"
-              src={conersationImages[0]}
-              alt={conersationName}
-            />
-          )}
-        </div>
-        <div className="flex-grow-1 d-block overflow-hidden">
-          <h6 className="mb-0 mt-1 text-truncate w-75">
-            {conersationName}
-          </h6>
-          <div className="small text-secondary">
-            You: Okay thanks, everyone.
+          >
+            {isGroup ? (
+              <GroupUser
+                memberAvatarDetail={[
+                  { memberImage: "01.jpg", memberName: "ABCD" },
+                  { memberImage: "02.jpg", memberName: "BCD" },
+                  { memberImage: "03.jpg", memberName: "CD" },
+                  { memberImage: "04.jpg", memberName: "D" },
+                ]}
+              />
+            ) : (
+              <img
+                className="avatar-img rounded-circle"
+                src={conersationImages[0]}
+                alt={conersationName}
+              />
+            )}
+          </div>
+          <div className="flex-grow-1 d-block overflow-hidden">
+            <h6 className="mb-0 mt-1 text-truncate w-75">{conersationName}</h6>
+            <div className="small text-secondary">
+              You: Okay thanks, everyone.
+            </div>
           </div>
         </div>
-      </div>
-    </span>
-  </li>
-
+      </span>
+    </li>
+  );
 }
 interface GroupUserInterface {
   memberAvatarDetail: { memberImage: string; memberName: string }[];
@@ -63,10 +63,11 @@ const GroupUser = (props: GroupUserInterface) => {
   const dAvatarCount = memberAvatarDetail.length;
   return (
     <ul
-      className={`avatar-group avatar-group-${["one", "two", "three", "four"][
-        dAvatarCount - 1 < 4 ? dAvatarCount - 1 : 4
-      ]
-        }`}
+      className={`avatar-group avatar-group-${
+        ["one", "two", "three", "four"][
+          dAvatarCount - 1 < 4 ? dAvatarCount - 1 : 4
+        ]
+      }`}
     >
       {memberAvatarDetail.slice(0, 3).map((avatar, index) => (
         <li

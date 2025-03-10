@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import UserConversation from "./conversation/UserConversation";
 import SideBar from "./userlist/SideBar";
 import { bindActionCreators } from "redux";
@@ -10,29 +10,28 @@ import EVENTS from "../../config/events";
 
 function Chat(props: any) {
   const { socket, user } = useSocket();
-  let {onlieUsers}=props.state.user;
+  let { onlineUsers } = props.state.user;
   useEffect(() => {
     socket.on(EVENTS.USER.GET, (users: any) => {
       if (users.length > 1) {
-        let filterdUsers = users.filter((u: any) => u.userId !== user?.id)
+        let filterdUsers = users.filter((u: any) => u.userId !== user?.id);
         if (filterdUsers && filterdUsers.length) {
-          props.userActions.setOnlineUser(filterdUsers)  
+          props.userActions.setOnlineUser(filterdUsers);
         }
-
       }
     });
-  }, [])
-  useEffect(()=>{
-    let {activeChat}=props.state.chat;
-    if(!activeChat.length && onlieUsers.length)
-    props.chatAction.setActiveChat(onlieUsers[0]) 
-  },[onlieUsers])
-  
+  }, []);
+  useEffect(() => {
+    let { activeChat } = props.state.chat;
+    if (!activeChat.length && onlineUsers.length)
+      props.chatAction.setActiveChat(onlineUsers[0]);
+  }, [onlineUsers]);
+
   return (
     <main>
       <div className="container">
         <div className="row gx-0">
-          <SideBar onlineUserCount={onlieUsers.length}/>
+          <SideBar onlineUserCount={onlineUsers.length} />
           <UserConversation />
         </div>
       </div>
@@ -45,7 +44,7 @@ function mapStateToProps(state: any) {
 function mapDispatchToProps(dispatch: any) {
   return {
     userActions: bindActionCreators(userActions, dispatch),
-    chatAction: bindActionCreators(chatAction, dispatch)
+    chatAction: bindActionCreators(chatAction, dispatch),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

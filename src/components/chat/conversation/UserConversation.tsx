@@ -8,6 +8,9 @@ import Conversation from "./Conversation";
 
 function UserConversation(props: any) {
   let { activeChat } = props.state.chat;
+  let {
+    user: { onlineUsers },
+  } = props.state;
   let { user } = useSocket();
   return (
     <div
@@ -28,7 +31,11 @@ function UserConversation(props: any) {
             >
               <TopAvatarAndStatus isGroup={false} {...activeChat} />
               <hr />
-              <Conversation isGroup={false} {...activeChat} />
+              <Conversation
+                isGroup={false}
+                {...activeChat}
+                onlineUsers={onlineUsers}
+              />
             </div>
           </div>
         </div>

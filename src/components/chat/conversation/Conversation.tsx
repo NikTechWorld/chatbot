@@ -7,18 +7,22 @@ import * as chatAction from "../../../components/chat/chatAction";
 import { requestAndShowPermission } from "../../../utils";
 
 const Conversation = (props: any) => {
-  const { socket, user } = useSocket();
+  const { socket } = useSocket();
+
+  let { messages, activeChat } = props.state.chat;
+
   React.useEffect(() => {
+    console.log(
+      activeChat);
     socket.on(EVENTS.MESSAGE.GET, (data: any) => {
       requestAndShowPermission(
-        "New Message from " + data.senderId,
+        "New Message from " + activeChat.name || activeChat.login,
         activeChat.avatar_url,
         data.message
       );
       props.chatAction.setMessage(data.senderId, data.message);
     });
   }, []);
-  let { messages, activeChat } = props.state.chat;
   return props.isGroup ? (
     <>
       <div className="chat-conversation-content custom-scrollbar os-host os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition os-host-overflow os-host-overflow-y">
